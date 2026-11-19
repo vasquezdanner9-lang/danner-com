@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DANNER.COM 3D | Mega Tienda Online (240 Productos)</title>
+  <title>DANNER.COM 3D | Mega Tienda Online (360 Productos)</title>
   <style>
     :root {
       --verde-principal: #aad500;
@@ -30,50 +30,64 @@
       overflow-x: hidden;
     }
 
-    /* --- AVISO DE MANTENIMIENTO SUPERIOR --- */
+    /* --- AVISO DE MANTENIMIENTO SUPERIOR (BARRA PRO) --- */
     .maintenance-banner {
-      background: linear-gradient(90deg, #ff6200, #e60012, #ff6200);
+      background: linear-gradient(90deg, #111318 0%, #2a1205 35%, #5c1608 50%, #2a1205 65%, #111318 100%);
       color: #ffffff;
       text-align: center;
       padding: 9px 16px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.9px;
       text-transform: uppercase;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+      border-bottom: 2px solid var(--naranja-cta);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.22);
     }
 
-    /* --- TOPBAR --- */
+    .maintenance-banner span {
+      color: var(--verde-principal);
+    }
+
+    /* --- TOPBAR (BARRA PRO) --- */
     .topbar {
-      background: linear-gradient(90deg, #0d0d0d, #1f2414);
-      color: #fff;
+      background: linear-gradient(90deg, #0b0d10 0%, #171d0c 50%, #0b0d10 100%);
+      color: #e6e8ec;
       font-size: 12px;
-      padding: 7px 5%;
+      padding: 8px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
+      border-bottom: 1px solid rgba(170, 213, 0, 0.22);
     }
 
     .topbar button {
-      background: none;
-      border: none;
+      background: rgba(170, 213, 0, 0.14);
+      border: 1px solid rgba(170, 213, 0, 0.4);
       color: var(--verde-principal);
       cursor: pointer;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 12px;
+      transition: 0.2s;
     }
 
-    /* --- HEADER --- */
+    .topbar button:hover {
+      background: var(--verde-principal);
+      color: #111;
+    }
+
+    /* --- HEADER (BARRA PRINCIPAL PRO) --- */
     header {
-      background-color: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,249,252,0.96) 100%);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--gris-borde);
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     }
 
     .header-main {
@@ -107,21 +121,23 @@
     }
 
     .btn-categorias {
-      background: var(--gris-fondo);
-      border: 1px solid var(--gris-borde);
-      padding: 10px 15px;
-      border-radius: 20px;
-      font-weight: 600;
+      background: linear-gradient(180deg, #ffffff, #eef1f5);
+      border: 1px solid #cfd5de;
+      padding: 10px 16px;
+      border-radius: 22px;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
       white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       transition: 0.2s;
     }
 
     .btn-categorias:hover {
-      background: #e2e5ea;
+      background: #e3e7ee;
+      border-color: var(--verde-oscuro);
     }
 
     /* Mega Menú Desplegable */
@@ -131,7 +147,7 @@
       top: 100%;
       left: 5%;
       background: var(--blanco);
-      width: 265px;
+      width: 275px;
       border-radius: 0 0 12px 12px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.18);
       border: 1px solid var(--gris-borde);
@@ -167,6 +183,8 @@
       flex: 1;
       display: flex;
       max-width: 500px;
+      border-radius: 22px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
     }
 
     .search-box input {
@@ -174,26 +192,32 @@
       padding: 10px 16px;
       border: 2px solid var(--verde-principal);
       border-right: none;
-      border-radius: 20px 0 0 20px;
+      border-radius: 22px 0 0 22px;
       outline: none;
       font-size: 14px;
+      background: #fff;
     }
 
     .search-box button {
-      background: var(--verde-principal);
+      background: linear-gradient(135deg, var(--verde-principal), #c5f018);
       border: none;
-      padding: 0 18px;
-      border-radius: 0 20px 20px 0;
-      font-weight: bold;
+      padding: 0 19px;
+      border-radius: 0 22px 22px 0;
+      font-weight: 800;
       cursor: pointer;
       color: #111;
+      transition: 0.2s;
+    }
+
+    .search-box button:hover {
+      filter: brightness(0.96);
     }
 
     /* Acciones Usuario */
     .user-actions {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .btn-3d-toggle {
@@ -216,15 +240,22 @@
     }
 
     .action-btn {
-      background: none;
-      border: none;
-      font-size: 14px;
-      font-weight: 600;
+      background: #f4f6f9;
+      border: 1px solid #e1e5ec;
+      padding: 7px 12px;
+      border-radius: 18px;
+      font-size: 13.5px;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       white-space: nowrap;
+      transition: 0.2s;
+    }
+
+    .action-btn:hover {
+      background: #e8ecf2;
     }
 
     .cart-count {
@@ -413,24 +444,27 @@
       margin-top: 5px;
     }
 
-    /* Barra de herramientas sobre catálogo */
+    /* Barra de herramientas sobre catálogo (BARRA PRO) */
     .catalog-header {
-      background: var(--blanco);
+      background: linear-gradient(90deg, #ffffff 0%, #f5f8ee 100%);
       padding: 13px 18px;
       border-radius: 12px;
+      border-left: 4px solid var(--verde-principal);
       margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }
 
     .catalog-header select {
       padding: 7px 12px;
       border-radius: 8px;
-      border: 1px solid var(--gris-borde);
+      border: 1px solid #c6cdd6;
+      background: #fff;
+      font-weight: 600;
       outline: none;
     }
 
@@ -784,6 +818,7 @@
       color: #ccc;
       margin-top: 50px;
       padding: 40px 5% 20px;
+      border-top: 3px solid var(--verde-principal);
     }
 
     .footer-grid {
@@ -840,13 +875,13 @@
 
   <!-- AVISO SUPERIOR -->
   <div class="maintenance-banner" role="status">
-    ⚠️ PAGINA EN MANTENIMIENTO, PRONTO NOVEDADES ⚠️
+    ⚠️ <span>PAGINA EN MANTENIMIENTO, PRONTO NOVEDADES</span> ⚠️ DERECHOS RESERVADOS DANNER.COM 2026 ⚠️
   </div>
 
   <!-- BARRA SUPERIOR -->
   <div class="topbar">
     <span>📍 Despacho a: <button id="locationBtn" onclick="abrirModalUbicacion()">Trujillo, La Libertad ▾</button></span>
-    <span>Catálogo oficial: 240 productos disponibles | Envío gratis desde S/ 99</span>
+    <span>Todo lo visto es modo de prueba: Fecha de lanzamiento 15/12/2026 con productos bajos a full Navidad | Envío gratis desde S/ 99</span>
   </div>
 
   <!-- HEADER -->
@@ -858,7 +893,7 @@
 
       <!-- Menú Desplegable -->
       <div class="mega-menu" id="megaMenu">
-        <button onclick="seleccionarCategoria('Todas')">📦 Ver los 240 productos <span>›</span></button>
+        <button onclick="seleccionarCategoria('Todas')">📦 Ver los 360 productos <span>›</span></button>
         <button onclick="seleccionarCategoria('Tecnología')">📱 Tecnología y Celulares <span>›</span></button>
         <button onclick="seleccionarCategoria('Cómputo')">💻 Cómputo y Gaming <span>›</span></button>
         <button onclick="seleccionarCategoria('Moda')">👟 Moda y Zapatillas <span>›</span></button>
@@ -868,7 +903,7 @@
 
       <!-- Buscador -->
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Buscar entre 240 productos en DANNER.COM..." oninput="reiniciarPaginaYFiltrar()">
+        <input type="text" id="searchInput" placeholder="Buscar entre 360 productos en DANNER.COM..." oninput="reiniciarPaginaYFiltrar()">
         <button onclick="reiniciarPaginaYFiltrar()">Buscar</button>
       </div>
 
@@ -887,9 +922,9 @@
   <section class="hero">
     <div class="hero-banner" id="heroBanner3D">
       <div class="hero-text">
-        <span class="hero-badge-3d">✨ EXPERIENCIA INTERACTIVA 3D</span>
-        <h1>DANNER.COM — Mega Catálogo 2026</h1>
-        <p>Explora 240 productos con vista 3D interactiva, descuentos de hasta 45% y entrega rápida a todo el país.</p>
+        <span class="hero-badge-3d"> EXPERIENCIA </span>
+        <h1>Catálogo</h1>
+        <p>Explora 360 productos con vista 3D interactiva, descuentos de hasta 45% y entrega rápida a todo el país.</p>
         <button class="btn-cta" onclick="filtrarSoloOfertas()">Ver súper ofertas</button>
       </div>
     </div>
@@ -899,27 +934,27 @@
   <section class="categorias-grid" id="quickCats">
     <div class="cat-card active" onclick="seleccionarCategoria('Todas', this)">
       <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=400&q=75" alt="Todos">
-      <span>🔥 Todos (240)</span>
+      <span>🔥 Todos (360)</span>
     </div>
     <div class="cat-card" onclick="seleccionarCategoria('Tecnología', this)">
       <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=75" alt="Tecnología">
-      <span>📱 Tecnología (48)</span>
+      <span>📱 Tecnología (72)</span>
     </div>
     <div class="cat-card" onclick="seleccionarCategoria('Cómputo', this)">
       <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=400&q=75" alt="Cómputo">
-      <span>💻 Cómputo (48)</span>
+      <span>💻 Cómputo (72)</span>
     </div>
     <div class="cat-card" onclick="seleccionarCategoria('Moda', this)">
       <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=75" alt="Moda">
-      <span>👟 Moda (48)</span>
+      <span>👟 Moda (72)</span>
     </div>
     <div class="cat-card" onclick="seleccionarCategoria('Hogar', this)">
       <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=400&q=75" alt="Hogar">
-      <span>🛋️ Hogar (48)</span>
+      <span>🛋️ Hogar (72)</span>
     </div>
     <div class="cat-card" onclick="seleccionarCategoria('Electro', this)">
       <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=75" alt="Electro">
-      <span>🧺 Electro (48)</span>
+      <span>🧺 Electro (72)</span>
     </div>
   </section>
 
@@ -957,7 +992,7 @@
     <!-- Sección Catálogo -->
     <div>
       <div class="catalog-header">
-        <span id="resultsCount">Mostrando 24 de 240 productos</span>
+        <span id="resultsCount">Mostrando 24 de 360 productos</span>
         <div>
           <label for="sortSelect" style="font-size:13px;">Ordenar por: </label>
           <select id="sortSelect" onchange="reiniciarPaginaYFiltrar()">
@@ -1089,41 +1124,52 @@
         { base: "Smartphone Galaxy Ultra 5G", marcas: ["SAMSUNG", "XIAOMI", "MOTOROLA", "APPLE"], min: 999, max: 4899, img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80", desc: "Pantalla AMOLED 120Hz, cámara de alta resolución y carga rápida." },
         { base: "Smart TV 4K UHD HDR", marcas: ["LG", "SAMSUNG", "SONY", "HISENSE"], min: 1199, max: 4599, img: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80", desc: "Imagen 4K ultra nítida con sonido envolvente y aplicaciones integradas." },
         { base: "Audífonos Inalámbricos Noise Cancelling", marcas: ["SONY", "JBL", "BOSE", "SOUNDPRO"], min: 149, max: 1199, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80", desc: "Cancelación activa de ruido y batería de larga duración." },
-        { base: "Smartwatch Deportivo GPS AMOLED", marcas: ["GARMIN", "HUAWEI", "AMAZFIT", "APPLE"], min: 229, max: 1699, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80", desc: "Monitoreo cardíaco 24/7, resistencia al agua y notificaciones inteligentes." }
+        { base: "Smartwatch Deportivo GPS AMOLED", marcas: ["GARMIN", "HUAWEI", "AMAZFIT", "APPLE"], min: 229, max: 1699, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80", desc: "Monitoreo cardíaco 24/7, resistencia al agua y notificaciones inteligentes." },
+        { base: "Cámara Mirrorless 4K + Lente", marcas: ["SONY", "CANON", "FUJIFILM", "PANASONIC"], min: 1899, max: 5499, img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80", desc: "Enfoque rápido híbrido, video 4K y gran rango dinámico para creadores." },
+        { base: "Parlante Bluetooth Portátil Resistente", marcas: ["JBL", "SONY", "BOSE", "MARSHALL"], min: 179, max: 1299, img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=600&q=80", desc: "Sonido potente en 360°, protección contra salpicaduras y autonomía extendida." }
       ],
       "Cómputo": [
         { base: "Laptop Gamer RTX Core i7", marcas: ["ASUS", "LENOVO", "HP", "ACER"], min: 2699, max: 5899, img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80", desc: "Alto rendimiento para ingeniería, diseño 3D y videojuegos exigentes." },
         { base: "Monitor Curvo Gaming 165Hz", marcas: ["LG", "ASUS", "SAMSUNG", "MSI"], min: 599, max: 2199, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80", desc: "Tiempo de respuesta de 1ms y colores vibrantes sin bordes." },
         { base: "Teclado Mecánico RGB Switch Blue", marcas: ["LOGITECH", "RAZER", "HYPERX", "REDRAGON"], min: 159, max: 699, img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80", desc: "Iluminación personalizable y estructura reforzada de aluminio." },
-        { base: "Tablet Pro Pantalla 11\" + Stylus", marcas: ["APPLE", "SAMSUNG", "LENOVO", "XIAOMI"], min: 799, max: 3499, img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&q=80", desc: "Ideal para tomar apuntes, dibujar y trabajar en movilidad." }
+        { base: "Tablet Pro Pantalla 11\" + Stylus", marcas: ["APPLE", "SAMSUNG", "LENOVO", "XIAOMI"], min: 799, max: 3499, img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&q=80", desc: "Ideal para tomar apuntes, dibujar y trabajar en movilidad." },
+        { base: "SSD NVMe Externo 2TB Alta Velocidad", marcas: ["SAMSUNG", "KINGSTON", "SANDISK", "WD"], min: 289, max: 999, img: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80", desc: "Transferencias ultrarrápidas por USB-C para respaldos y proyectos pesados." },
+        { base: "Mouse Inalámbrico Ergonomía Pro", marcas: ["LOGITECH", "RAZER", "CORSAIR", "HYPERX"], min: 119, max: 549, img: "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=600&q=80", desc: "Sensor óptico de alta precisión y batería recargable de larga duración." }
       ],
       "Moda": [
         { base: "Zapatillas Running Amortiguación Air", marcas: ["NIKE", "ADIDAS", "PUMA", "REEBOK"], min: 189, max: 649, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80", desc: "Suela ultraligera de alto retorno de energía y malla transpirable." },
         { base: "Casaca Impermeable Cortaviento", marcas: ["COLUMBIA", "NORTH FACE", "TIMBERLAND", "URBAN"], min: 179, max: 799, img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80", desc: "Protección contra lluvia ligera y viento ideal para ruta o ciudad." },
         { base: "Mochila Urbana Laptop 16\"", marcas: ["SAMSONITE", "NORTH FACE", "ADIDAS", "TARGUS"], min: 129, max: 459, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80", desc: "Compartimento acolchado, tela repelente al agua y bolsillos ergonómicos." },
-        { base: "Polera Algodón Premium Hoodie", marcas: ["ADIDAS", "NIKE", "LEVIS", "ZARA"], min: 119, max: 349, img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80", desc: "Felpa suave de alta gramatura con capucha ajustable y corte moderno." }
+        { base: "Polera Algodón Premium Hoodie", marcas: ["ADIDAS", "NIKE", "LEVIS", "ZARA"], min: 119, max: 349, img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80", desc: "Felpa suave de alta gramatura con capucha ajustable y corte moderno." },
+        { base: "Lentes de Sol Polarizados UV400", marcas: ["RAY-BAN", "OAKLEY", "HAWERS", "POLAROID"], min: 129, max: 699, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=600&q=80", desc: "Protección solar total y reducción de reflejos para conducción y aire libre." },
+        { base: "Botines Outdoor Trekking Impermeables", marcas: ["TIMBERLAND", "COLUMBIA", "CAT", "MERRELL"], min: 249, max: 899, img: "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&w=600&q=80", desc: "Tracción reforzada en terrenos irregulares y soporte cómodo en tobillo." }
       ],
       "Hogar": [
         { base: "Sofá Seccional Tela Antimanchas", marcas: ["BOSCO", "MICA", "HOMEFLEX", "DECOH"], min: 899, max: 2999, img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80", desc: "Estructura de madera maciza, espuma de alta densidad y cojines mullidos." },
         { base: "Escritorio ergonómico Gamer / Oficina", marcas: ["FLEXI", "HOMESTUDIO", "COUGAR", "MICA"], min: 299, max: 1199, img: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=600&q=80", desc: "Amplia superficie de trabajo con pasacables y estructura metálica." },
         { base: "Lámpara LED Inteligente de Ambiente", marcas: ["XIAOMI", "PHILIPS", "TP-LINK", "DECOH"], min: 119, max: 499, img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80", desc: "Control de temperatura de color y brillo desde app o interruptor táctil." },
-        { base: "Juego de Sábanas Microfibra Premium", marcas: ["CANNON", "ROSEN", "HOMEFLEX", "DECOH"], min: 119, max: 329, img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80", desc: "Suavidad térmica, ajuste profundo y fácil lavado sin arrugas." }
+        { base: "Juego de Sábanas Microfibra Premium", marcas: ["CANNON", "ROSEN", "HOMEFLEX", "DECOH"], min: 119, max: 329, img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80", desc: "Suavidad térmica, ajuste profundo y fácil lavado sin arrugas." },
+        { base: "Silla Ergonómica Malla Lumbar", marcas: ["FLEXI", "HOMESTUDIO", "COUGAR", "BOSCO"], min: 349, max: 1499, img: "https://images.unsplash.com/photo-1505843490538-513632de7167?auto=format&fit=crop&w=600&q=80", desc: "Soporte lumbar ajustable, reposacabezas y base giratoria reforzada." },
+        { base: "Set de Organización y Almacenaje", marcas: ["HOMEFLEX", "MICA", "DECOH", "BOSCO"], min: 119, max: 399, img: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=600&q=80", desc: "Optimiza espacios en dormitorios, lavandería o estudio con diseño limpio." }
       ],
       "Electro": [
         { base: "Freidora de Aire Digital XL 6.5L", marcas: ["OSTER", "PHILIPS", "IMACO", "THOMAS"], min: 199, max: 699, img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80", desc: "Cocción uniforme con hasta 85% menos aceite y panel táctil." },
         { base: "Cafetera Espresso Automática", marcas: ["DELONGHI", "OSTER", "KRUPS", "NESPRESSO"], min: 249, max: 1899, img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=600&q=80", desc: "Presión óptima para espresso cremoso y vaporizador de leche." },
         { base: "Aspiradora Inalámbrica Ciclónica", marcas: ["DYSON", "XIAOMI", "SAMSUNG", "THOMAS"], min: 299, max: 1999, img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=600&q=80", desc: "Alta potencia de succión, filtro HEPA y autonomía sin cables." },
-        { base: "Licuadora de Alta Potencia 1200W", marcas: ["OSTER", "NINJA", "BLANIK", "THOMAS"], min: 149, max: 599, img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=600&q=80", desc: "Cuchillas de acero inoxidable capaces de triturar hielo y frutos secos." }
+        { base: "Licuadora de Alta Potencia 1200W", marcas: ["OSTER", "NINJA", "BLANIK", "THOMAS"], min: 149, max: 599, img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=600&q=80", desc: "Cuchillas de acero inoxidable capaces de triturar hielo y frutos secos." },
+        { base: "Hervidor Eléctrico Acero 1.7L", marcas: ["OSTER", "THOMAS", "IMACO", "PHILIPS"], min: 119, max: 299, img: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=600&q=80", desc: "Ebullición rápida, apagado automático y base giratoria de 360°." },
+        { base: "Plancha a Vapor Cerámica Antiadherente", marcas: ["PHILIPS", "OSTER", "THOMAS", "IMACO"], min: 119, max: 399, img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=600&q=80", desc: "Golpe de vapor continuo para eliminar arrugas en todo tipo de prendas." }
       ]
     };
 
     const entregas = ["Llega mañana", "Retiro en tienda"];
     const productos = [];
 
+    // Generar 360 productos (72 por cada una de las 5 categorías)
     let idCounter = 1;
     Object.keys(plantillas).forEach((cat, catIdx) => {
       const listaCat = plantillas[cat];
-      for (let i = 0; i < 48; i++) {
+      for (let i = 0; i < 72; i++) {
         const tpl = listaCat[i % listaCat.length];
         const marca = tpl.marcas[(i + catIdx) % tpl.marcas.length];
         const serie = Math.floor(i / listaCat.length) + 1;
@@ -1238,7 +1284,7 @@
       const countEl = document.getElementById("resultsCount");
 
       if (filtrados.length === 0) {
-        countEl.textContent = "Mostrando 0 de 240 productos";
+        countEl.textContent = `Mostrando 0 de ${productos.length} productos`;
         grid.innerHTML = `<p style="grid-column:1/-1; background:#fff; padding:30px; border-radius:12px; text-align:center;">No se encontraron productos con esos filtros.</p>`;
       } else {
         countEl.textContent = `Mostrando ${inicio + 1}–${inicio + visibles.length} de ${filtrados.length} productos (Catálogo total: ${productos.length})`;
