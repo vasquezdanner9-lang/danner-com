@@ -30,6 +30,19 @@
       overflow-x: hidden;
     }
 
+    /* --- AVISO DE MANTENIMIENTO SUPERIOR --- */
+    .maintenance-banner {
+      background: linear-gradient(90deg, #ff6200, #e60012, #ff6200);
+      color: #ffffff;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    }
+
     /* --- TOPBAR --- */
     .topbar {
       background: linear-gradient(90deg, #0d0d0d, #1f2414);
@@ -825,6 +838,11 @@
 </head>
 <body>
 
+  <!-- AVISO SUPERIOR -->
+  <div class="maintenance-banner" role="status">
+    ⚠️ PAGINA EN MANTENIMIENTO, PRONTO NOVEDADES ⚠️
+  </div>
+
   <!-- BARRA SUPERIOR -->
   <div class="topbar">
     <span>📍 Despacho a: <button id="locationBtn" onclick="abrirModalUbicacion()">Trujillo, La Libertad ▾</button></span>
@@ -835,9 +853,9 @@
   <header>
     <div class="header-main">
       <a class="logo" onclick="resetearTodo()"><span>DANNER</span>.COM</a>
-      
+
       <button class="btn-categorias" onclick="toggleMegaMenu()">☰ Categorías</button>
-      
+
       <!-- Menú Desplegable -->
       <div class="mega-menu" id="megaMenu">
         <button onclick="seleccionarCategoria('Todas')">📦 Ver los 240 productos <span>›</span></button>
@@ -871,7 +889,7 @@
       <div class="hero-text">
         <span class="hero-badge-3d">✨ EXPERIENCIA INTERACTIVA 3D</span>
         <h1>DANNER.COM — Mega Catálogo 2026</h1>
-        <p>Explora más de 240 productos con vista 3D interactiva, descuentos de hasta 45% y entrega rápida a todo el país.</p>
+        <p>Explora 240 productos con vista 3D interactiva, descuentos de hasta 45% y entrega rápida a todo el país.</p>
         <button class="btn-cta" onclick="filtrarSoloOfertas()">Ver súper ofertas</button>
       </div>
     </div>
@@ -1065,414 +1083,387 @@
     </div>
   </footer>
 
-  <!-- JAVASCRIPT COMPLETO: GENERADOR DE 240 PRODUCTOS + MOTOR 3D + PAGINACIÓN -->
   <script>
-    // PLANTILLAS POR CATEGORÍA PARA GENERAR 240 PRODUCTOS REALISTAS
     const plantillas = {
       "Tecnología": [
-        { base: "Smartphone Galaxy Ultra 5G", marcas: ["SAMSUNG", "XIAOMI", "MOTOROLA", "APPLE"], min: 999, max: 4899, img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80", fallback: "📱", desc: "Pantalla AMOLED 120Hz, cámara de alta resolución y carga rápida." },
-        { base: "Smart TV 4K UHD HDR", marcas: ["LG", "SAMSUNG", "SONY", "HISENSE"], min: 1199, max: 4599, img: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80", fallback: "📺", desc: "Imagen 4K ultra nítida con sonido envolvente y aplicaciones integradas." },
-        { base: "Audífonos Inalámbricos Noise Cancelling", marcas: ["SONY", "JBL", "BOSE", "SOUNDPRO"], min: 149, max: 1199, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80", fallback: "🎧", desc: "Cancelación activa de ruido y batería de larga duración." },
-        { base: "Smartwatch Deportivo GPS AMOLED", marcas: ["GARMIN", "HUAWEI", "AMAZFIT", "APPLE"], min: 229, max: 1699, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80", fallback: "⌚", desc: "Monitoreo cardíaco 24/7, resistencia al agua y notificaciones inteligentes." }
+        { base: "Smartphone Galaxy Ultra 5G", marcas: ["SAMSUNG", "XIAOMI", "MOTOROLA", "APPLE"], min: 999, max: 4899, img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80", desc: "Pantalla AMOLED 120Hz, cámara de alta resolución y carga rápida." },
+        { base: "Smart TV 4K UHD HDR", marcas: ["LG", "SAMSUNG", "SONY", "HISENSE"], min: 1199, max: 4599, img: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80", desc: "Imagen 4K ultra nítida con sonido envolvente y aplicaciones integradas." },
+        { base: "Audífonos Inalámbricos Noise Cancelling", marcas: ["SONY", "JBL", "BOSE", "SOUNDPRO"], min: 149, max: 1199, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80", desc: "Cancelación activa de ruido y batería de larga duración." },
+        { base: "Smartwatch Deportivo GPS AMOLED", marcas: ["GARMIN", "HUAWEI", "AMAZFIT", "APPLE"], min: 229, max: 1699, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80", desc: "Monitoreo cardíaco 24/7, resistencia al agua y notificaciones inteligentes." }
       ],
       "Cómputo": [
-        { base: "Laptop Gamer RTX Core i7", marcas: ["ASUS", "LENOVO", "HP", "ACER"], min: 2699, max: 5899, img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80", fallback: "💻", desc: "Alto rendimiento para ingeniería, diseño 3D y videojuegos exigentes." },
-        { base: "Monitor Curvo Gaming 165Hz", marcas: ["LG", "ASUS", "SAMSUNG", "MSI"], min: 599, max: 2199, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80", fallback: "🖥️", desc: "Tiempo de respuesta de 1ms y colores vibrantes sin bordes." },
-        { base: "Teclado Mecánico RGB Switch Blue", marcas: ["LOGITECH", "RAZER", "HYPERX", "REDRAGON"], min: 159, max: 699, img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80", fallback: "⌨️", desc: "Iluminación personalizable y estructura reforzada de aluminio." },
-        { base: "Tablet Pro Pantalla 11\" + Stylus", marcas: ["APPLE", "SAMSUNG", "LENOVO", "XIAOMI"], min: 799, max: 3499, img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&q=80", fallback: "📲", desc: "Ideal para tomar apuntes, dibujar y trabajar en movilidad." }
+        { base: "Laptop Gamer RTX Core i7", marcas: ["ASUS", "LENOVO", "HP", "ACER"], min: 2699, max: 5899, img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80", desc: "Alto rendimiento para ingeniería, diseño 3D y videojuegos exigentes." },
+        { base: "Monitor Curvo Gaming 165Hz", marcas: ["LG", "ASUS", "SAMSUNG", "MSI"], min: 599, max: 2199, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80", desc: "Tiempo de respuesta de 1ms y colores vibrantes sin bordes." },
+        { base: "Teclado Mecánico RGB Switch Blue", marcas: ["LOGITECH", "RAZER", "HYPERX", "REDRAGON"], min: 159, max: 699, img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80", desc: "Iluminación personalizable y estructura reforzada de aluminio." },
+        { base: "Tablet Pro Pantalla 11\" + Stylus", marcas: ["APPLE", "SAMSUNG", "LENOVO", "XIAOMI"], min: 799, max: 3499, img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&q=80", desc: "Ideal para tomar apuntes, dibujar y trabajar en movilidad." }
       ],
       "Moda": [
-        { base: "Zapatillas Running Amortiguación Air", marcas: ["NIKE", "ADIDAS", "PUMA", "REEBOK"], min: 189, max: 649, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80", fallback: "👟", desc: "Suela ultraligera de alto retorno de energía y malla transpirable." },
-        { base: "Casaca Impermeable Cortaviento", marcas: ["COLUMBIA", "NORTH FACE", "TIMBERLAND", "URBAN"], min: 199, max: 799, img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80", fallback: "🧥", desc: "Protección térmica contra viento y lluvia ligera." },
-        { base: "Mochila Ejecutiva Antirrobo USB", marcas: ["SAMSONITE", "TARGUS", "XTREM", "SWISS"], min: 119, max: 429, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80", fallback: "🎒", desc: "Compartimento acolchado para laptop de hasta 16 pulgadas." },
-        { base: "Lentes de Sol Polarizados UV400", marcas: ["RAY-BAN", "OAKLEY", "HAWKERS", "VOGUE"], min: 139, max: 689, img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80", fallback: "🕶️", desc: "Marco ligero de acetato y cristales con filtro UV completo." }
+        { base: "Zapatillas Running Amortiguación Air", marcas: ["NIKE", "ADIDAS", "PUMA", "REEBOK"], min: 189, max: 649, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80", desc: "Suela ultraligera de alto retorno de energía y malla transpirable." },
+        { base: "Casaca Impermeable Cortaviento", marcas: ["COLUMBIA", "NORTH FACE", "TIMBERLAND", "URBAN"], min: 179, max: 799, img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80", desc: "Protección contra lluvia ligera y viento ideal para ruta o ciudad." },
+        { base: "Mochila Urbana Laptop 16\"", marcas: ["SAMSONITE", "NORTH FACE", "ADIDAS", "TARGUS"], min: 129, max: 459, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80", desc: "Compartimento acolchado, tela repelente al agua y bolsillos ergonómicos." },
+        { base: "Polera Algodón Premium Hoodie", marcas: ["ADIDAS", "NIKE", "LEVIS", "ZARA"], min: 119, max: 349, img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80", desc: "Felpa suave de alta gramatura con capucha ajustable y corte moderno." }
       ],
       "Hogar": [
-        { base: "Sofá Seccional 3 Cuerpos Antifluido", marcas: ["DECOHOGAR", "MICA", "BASEMENT", "CONFORT"], min: 1099, max: 3299, img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80", fallback: "🛋️", desc: "Tapiz suave resistente a derrames con estructura de madera tornillo." },
-        { base: "Silla Ergonómica Oficina Soporte Lumbar", marcas: ["ERGOPRO", "OFFICEPLUS", "VERTAGEAR", "HOMEDECOR"], min: 349, max: 1299, img: "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=600&q=80", fallback: "🪑", desc: "Respaldo de malla transpirable, reposabrazos ajustables y pistón neumático." },
-        { base: "Juego de Sábanas 400 Hilos Algodón", marcas: ["CANNON", "ROSEN", "CASA BONITA", "ELITE"], min: 119, max: 389, img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80", fallback: "🛏️", desc: "Textura ultrasuave e hipoalergénica para máximo descanso." },
-        { base: "Lámpara Moderna LED Minimalista", marcas: ["PHILIPS", "LUMINA", "DECOART", "NORDIC"], min: 109, max: 459, img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80", fallback: "💡", desc: "Iluminación cálida regulable de bajo consumo energético." }
+        { base: "Sofá Seccional Tela Antimanchas", marcas: ["BOSCO", "MICA", "HOMEFLEX", "DECOH"], min: 899, max: 2999, img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80", desc: "Estructura de madera maciza, espuma de alta densidad y cojines mullidos." },
+        { base: "Escritorio ergonómico Gamer / Oficina", marcas: ["FLEXI", "HOMESTUDIO", "COUGAR", "MICA"], min: 299, max: 1199, img: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=600&q=80", desc: "Amplia superficie de trabajo con pasacables y estructura metálica." },
+        { base: "Lámpara LED Inteligente de Ambiente", marcas: ["XIAOMI", "PHILIPS", "TP-LINK", "DECOH"], min: 119, max: 499, img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80", desc: "Control de temperatura de color y brillo desde app o interruptor táctil." },
+        { base: "Juego de Sábanas Microfibra Premium", marcas: ["CANNON", "ROSEN", "HOMEFLEX", "DECOH"], min: 119, max: 329, img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80", desc: "Suavidad térmica, ajuste profundo y fácil lavado sin arrugas." }
       ],
       "Electro": [
-        { base: "Cafetera Express Automática Inox", marcas: ["OSTER", "DELONGHI", "KRUPS", "BOSCH"], min: 399, max: 1899, img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=600&q=80", fallback: "☕", desc: "Bomba de presión de 19 bares con espumador de leche integrado." },
-        { base: "Freidora de Aire Digital 5.5L", marcas: ["OSTER", "PHILIPS", "IMACO", "NINJA"], min: 249, max: 899, img: "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=600&q=80", fallback: "🍟", desc: "Cocción saludable sin aceite con panel táctil y 8 programas." },
-        { base: "Aspiradora Robot Inteligente WiFi", marcas: ["XIAOMI", "IROBOT", "SAMSUNG", "ELECTROLUX"], min: 599, max: 2199, img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=600&q=80", fallback: "🤖", desc: "Mapeo láser del hogar, barrido y trapeado programable desde el celular." },
-        { base: "Licuadora Alta Potencia Vaso Vidrio", marcas: ["OSTER", "IMACO", "BOSCH", "KITCHENAID"], min: 169, max: 699, img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=600&q=80", fallback: "🥤", desc: "Cuchillas de acero inoxidable capaces de triturar hielo al instante." }
+        { base: "Freidora de Aire Digital XL 6.5L", marcas: ["OSTER", "PHILIPS", "IMACO", "THOMAS"], min: 199, max: 699, img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80", desc: "Cocción uniforme con hasta 85% menos aceite y panel táctil." },
+        { base: "Cafetera Espresso Automática", marcas: ["DELONGHI", "OSTER", "KRUPS", "NESPRESSO"], min: 249, max: 1899, img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=600&q=80", desc: "Presión óptima para espresso cremoso y vaporizador de leche." },
+        { base: "Aspiradora Inalámbrica Ciclónica", marcas: ["DYSON", "XIAOMI", "SAMSUNG", "THOMAS"], min: 299, max: 1999, img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=600&q=80", desc: "Alta potencia de succión, filtro HEPA y autonomía sin cables." },
+        { base: "Licuadora de Alta Potencia 1200W", marcas: ["OSTER", "NINJA", "BLANIK", "THOMAS"], min: 149, max: 599, img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=600&q=80", desc: "Cuchillas de acero inoxidable capaces de triturar hielo y frutos secos." }
       ]
     };
 
-    const variantes = ["Edición Pro", "Serie 2026", "Plus", "Max", "Edition", "Lite", "Advance", "Elite", "Prime", "Studio", "Ultra", "Neo"];
-
-    // GENERADOR DE 240 PRODUCTOS (48 POR CATEGORÍA)
+    const entregas = ["Llega mañana", "Retiro en tienda"];
     const productos = [];
-    let idCounter = 1;
 
-    Object.keys(plantillas).forEach(categoria => {
-      const itemsCat = plantillas[categoria];
+    let idCounter = 1;
+    Object.keys(plantillas).forEach((cat, catIdx) => {
+      const listaCat = plantillas[cat];
       for (let i = 0; i < 48; i++) {
-        const tpl = itemsCat[i % itemsCat.length];
-        const marca = tpl.marcas[i % tpl.marcas.length];
-        const variante = variantes[(i + idCounter) % variantes.length];
-        const precio = Math.round((tpl.min + ((i * 73) % (tpl.max - tpl.min))) / 10) * 10 - 1;
-        const descuento = 15 + ((i * 7) % 31); // Entre 15% y 45%
-        const precioNormal = Math.round(precio / (1 - descuento / 100));
-        const envio = i % 2 === 0 ? "Llega mañana" : "Retiro en tienda";
+        const tpl = listaCat[i % listaCat.length];
+        const marca = tpl.marcas[(i + catIdx) % tpl.marcas.length];
+        const serie = Math.floor(i / listaCat.length) + 1;
+        const rango = tpl.max - tpl.min;
+        const rawPrecio = tpl.min + ((i * 73 + catIdx * 137) % Math.max(100, rango));
+        const precioOferta = Math.round(rawPrecio / 10) * 10 - 1;
+        const descuento = 10 + ((i * 7 + catIdx * 5) % 36);
+        const precioNormal = Math.round((precioOferta / (1 - descuento / 100)) / 10) * 10;
 
         productos.push({
-          id: idCounter,
-          nombre: `${tpl.base} ${variante} #${idCounter}`,
-          marca: marca,
-          categoria: categoria,
-          precio: precio,
-          precioNormal: precioNormal,
-          descuento: descuento,
-          envio: envio,
+          id: idCounter++,
+          nombre: `${tpl.base} ${marca} Gen ${serie}`,
+          marca,
+          categoria: cat,
+          precioOferta,
+          precioNormal,
+          descuento,
+          envio: entregas[(i + catIdx) % entregas.length],
           img: tpl.img,
-          fallback: tpl.fallback,
-          desc: `${tpl.desc} Modelo ${variante} con garantía oficial en DANNER.COM.`
+          descripcion: `${tpl.desc} Modelo serie ${serie} con garantía oficial en DANNER.COM.`
         });
-        idCounter++;
       }
     });
 
-    // VARIABLES DE ESTADO
     let carrito = [];
     let paginaActual = 1;
-    const productosPorPagina = 24;
-    let modo3DActivo = true;
+    const porPagina = 24;
+    let modo3D = true;
+    let soloOfertas = false;
 
-    // RENDERIZAR CATÁLOGO CON PAGINACIÓN
-    function renderizarProductos(listaFiltrada) {
-      const grid = document.getElementById('productsGrid');
-      const counter = document.getElementById('resultsCount');
-      const totalItems = listaFiltrada.length;
-      const totalPaginas = Math.ceil(totalItems / productosPorPagina) || 1;
-
-      if (paginaActual > totalPaginas) paginaActual = 1;
-
-      const inicio = (paginaActual - 1) * productosPorPagina;
-      const fin = inicio + productosPorPagina;
-      const visibles = listaFiltrada.slice(inicio, fin);
-
-      grid.innerHTML = '';
-      counter.textContent = `Mostrando ${visibles.length} de ${totalItems} productos (Página ${paginaActual} de ${totalPaginas})`;
-
-      if (visibles.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; background:white; padding:40px; text-align:center; border-radius:14px;">
-          <h3>No encontramos productos con esos filtros 😕</h3>
-          <p style="margin-top:8px; color:#666;">Intenta ampliar el rango de precio o limpiar los filtros.</p>
-        </div>`;
-        document.getElementById('paginationContainer').innerHTML = '';
-        return;
+    function inicializarEventos3D() {
+      const hero = document.getElementById("heroBanner3D");
+      if (hero) {
+        hero.addEventListener("mousemove", (e) => {
+          if (!modo3D) return;
+          const rect = hero.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          hero.style.transform = `rotateX(${(-y * 7).toFixed(2)}deg) rotateY(${(x * 7).toFixed(2)}deg)`;
+        });
+        hero.addEventListener("mouseleave", () => {
+          hero.style.transform = "rotateX(0deg) rotateY(0deg)";
+        });
       }
 
-      visibles.forEach(prod => {
-        grid.innerHTML += `
-          <article class="product-card" onmousemove="aplicarEfecto3D(event, this)" onmouseleave="resetearEfecto3D(this)">
-            <div class="card-glare"></div>
-            <span class="badge-envio">${prod.envio}</span>
-            <div>
-              <div class="product-img" onclick="verDetalle(${prod.id})">
-                <img src="${prod.img}" alt="${prod.nombre}" loading="lazy" onerror="this.outerHTML='<span style=font-size:48px>${prod.fallback}</span>'">
-              </div>
-              <span class="brand">${prod.marca} • ${prod.categoria}</span>
-              <h2 class="title" onclick="verDetalle(${prod.id})">${prod.nombre}</h2>
-            </div>
-            <div>
-              <div class="price-box">
-                <span class="price-offer">S/ ${prod.precio.toLocaleString()}</span>
-                <span class="discount-badge">-${prod.descuento}%</span>
-                <span class="price-normal">S/ ${prod.precioNormal.toLocaleString()}</span>
-              </div>
-              <button class="btn-add" onclick="agregarAlCarrito(${prod.id})">Agregar a la bolsa</button>
-            </div>
-          </article>
-        `;
+      document.querySelectorAll(".product-card").forEach((card) => {
+        const glare = card.querySelector(".card-glare");
+        card.addEventListener("mousemove", (e) => {
+          if (!modo3D) return;
+          const rect = card.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width;
+          const py = (e.clientY - rect.top) / rect.height;
+          const rotY = (px - 0.5) * 16;
+          const rotX = (0.5 - py) * 16;
+          card.style.transform = `translateY(-6px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+          if (glare) {
+            glare.style.background = `radial-gradient(circle at ${(px * 100).toFixed(0)}% ${(py * 100).toFixed(0)}%, rgba(255,255,255,0.5), transparent 65%)`;
+          }
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "translateY(0px) rotateX(0deg) rotateY(0deg)";
+        });
       });
-
-      renderizarPaginacion(totalPaginas);
-    }
-
-    function renderizarPaginacion(totalPaginas) {
-      const container = document.getElementById('paginationContainer');
-      if (totalPaginas <= 1) {
-        container.innerHTML = '';
-        return;
-      }
-
-      let html = `<button class="page-btn" ${paginaActual === 1 ? 'disabled' : ''} onclick="cambiarPagina(${paginaActual - 1})">« Anterior</button>`;
-
-      for (let i = 1; i <= totalPaginas; i++) {
-        if (i === 1 || i === totalPaginas || (i >= paginaActual - 2 && i <= paginaActual + 2)) {
-          html += `<button class="page-btn ${i === paginaActual ? 'active' : ''}" onclick="cambiarPagina(${i})">${i}</button>`;
-        } else if (i === paginaActual - 3 || i === paginaActual + 3) {
-          html += `<span style="padding:0 4px;">...</span>`;
-        }
-      }
-
-      html += `<button class="page-btn" ${paginaActual === totalPaginas ? 'disabled' : ''} onclick="cambiarPagina(${paginaActual + 1})">Siguiente »</button>`;
-      container.innerHTML = html;
-    }
-
-    function cambiarPagina(nuevaPagina) {
-      paginaActual = nuevaPagina;
-      aplicarFiltros();
-      document.querySelector('.main-container').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // MOTOR 3D INTERACTIVO
-    function aplicarEfecto3D(e, card) {
-      if (!modo3DActivo) return;
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = ((y - centerY) / centerY) * -10;
-      const rotateY = ((x - centerX) / centerX) * 10;
-
-      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-
-      const glare = card.querySelector('.card-glare');
-      if (glare) {
-        const glareX = (x / rect.width) * 100;
-        const glareY = (y / rect.height) * 100;
-        glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.45), transparent 65%)`;
-      }
-    }
-
-    function resetearEfecto3D(card) {
-      card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
     }
 
     function alternarModo3D() {
-      modo3DActivo = !modo3DActivo;
-      const btn = document.getElementById('btnToggle3D');
-      btn.textContent = modo3DActivo ? '✨ 3D: ON' : '✨ 3D: OFF';
-      btn.classList.toggle('off', !modo3DActivo);
+      modo3D = !modo3D;
+      const btn = document.getElementById("btnToggle3D");
+      btn.textContent = modo3D ? "✨ 3D: ON" : "✨ 3D: OFF";
+      btn.classList.toggle("off", !modo3D);
+      if (!modo3D) {
+        document.getElementById("heroBanner3D").style.transform = "none";
+        document.querySelectorAll(".product-card").forEach(c => c.style.transform = "none");
+      }
     }
 
-    // Efecto 3D en Hero Banner
-    const heroBanner = document.getElementById('heroBanner3D');
-    heroBanner.addEventListener('mousemove', (e) => {
-      if (!modo3DActivo) return;
-      const rect = heroBanner.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      heroBanner.style.transform = `rotateX(${y * -6}deg) rotateY(${x * 6}deg)`;
-    });
-    heroBanner.addEventListener('mouseleave', () => {
-      heroBanner.style.transform = 'rotateX(0deg) rotateY(0deg)';
-    });
+    function obtenerFiltrados() {
+      const texto = document.getElementById("searchInput").value.trim().toLowerCase();
+      const catsSel = Array.from(document.querySelectorAll(".chk-cat:checked")).map(c => c.value);
+      const enviosSel = Array.from(document.querySelectorAll(".chk-envio:checked")).map(e => e.value);
+      const maxPrecio = Number(document.getElementById("priceRange").value);
+      const orden = document.getElementById("sortSelect").value;
 
-    // FILTRADO Y ORDENAMIENTO
+      let lista = productos.filter(p => {
+        const matchTexto = !texto ||
+          p.nombre.toLowerCase().includes(texto) ||
+          p.marca.toLowerCase().includes(texto) ||
+          p.categoria.toLowerCase().includes(texto);
+        const matchCat = catsSel.length === 0 || catsSel.includes(p.categoria);
+        const matchEnvio = enviosSel.length === 0 || enviosSel.includes(p.envio);
+        const matchPrecio = p.precioOferta <= maxPrecio;
+        const matchOferta = !soloOfertas || p.descuento >= 30;
+        return matchTexto && matchCat && matchEnvio && matchPrecio && matchOferta;
+      });
+
+      if (orden === "menor-precio") lista.sort((a, b) => a.precioOferta - b.precioOferta);
+      else if (orden === "mayor-precio") lista.sort((a, b) => b.precioOferta - a.precioOferta);
+      else if (orden === "descuento") lista.sort((a, b) => b.descuento - a.descuento);
+
+      return lista;
+    }
+
+    function renderizarCatalogo() {
+      const filtrados = obtenerFiltrados();
+      const totalPaginas = Math.max(1, Math.ceil(filtrados.length / porPagina));
+      if (paginaActual > totalPaginas) paginaActual = 1;
+
+      const inicio = (paginaActual - 1) * porPagina;
+      const visibles = filtrados.slice(inicio, inicio + porPagina);
+
+      const grid = document.getElementById("productsGrid");
+      const countEl = document.getElementById("resultsCount");
+
+      if (filtrados.length === 0) {
+        countEl.textContent = "Mostrando 0 de 240 productos";
+        grid.innerHTML = `<p style="grid-column:1/-1; background:#fff; padding:30px; border-radius:12px; text-align:center;">No se encontraron productos con esos filtros.</p>`;
+      } else {
+        countEl.textContent = `Mostrando ${inicio + 1}–${inicio + visibles.length} de ${filtrados.length} productos (Catálogo total: ${productos.length})`;
+        grid.innerHTML = visibles.map(p => `
+          <article class="product-card">
+            <div class="card-glare"></div>
+            <span class="badge-envio">${p.envio}</span>
+            <div class="product-img" onclick="abrirDetalle(${p.id})">
+              <img src="${p.img}" alt="${p.nombre}" loading="lazy">
+            </div>
+            <div>
+              <span class="brand">${p.marca} · ${p.categoria}</span>
+              <h3 class="title" onclick="abrirDetalle(${p.id})">${p.nombre}</h3>
+              <div class="price-box">
+                <span class="price-offer">S/ ${p.precioOferta.toLocaleString("es-PE")}</span>
+                <span class="discount-badge">-${p.descuento}%</span>
+                <span class="price-normal">S/ ${p.precioNormal.toLocaleString("es-PE")}</span>
+              </div>
+            </div>
+            <button class="btn-add" onclick="agregarAlCarrito(${p.id})">Agregar a la bolsa</button>
+          </article>
+        `).join("");
+      }
+
+      renderizarPaginacion(totalPaginas);
+      inicializarEventos3D();
+    }
+
+    function renderizarPaginacion(totalPaginas) {
+      const cont = document.getElementById("paginationContainer");
+      if (totalPaginas <= 1) {
+        cont.innerHTML = "";
+        return;
+      }
+
+      let html = `<button class="page-btn" ${paginaActual === 1 ? "disabled" : ""} onclick="irPagina(${paginaActual - 1})">‹ Anterior</button>`;
+      for (let i = 1; i <= totalPaginas; i++) {
+        html += `<button class="page-btn ${i === paginaActual ? "active" : ""}" onclick="irPagina(${i})">${i}</button>`;
+      }
+      html += `<button class="page-btn" ${paginaActual === totalPaginas ? "disabled" : ""} onclick="irPagina(${paginaActual + 1})">Siguiente ›</button>`;
+      cont.innerHTML = html;
+    }
+
+    function irPagina(pag) {
+      paginaActual = pag;
+      renderizarCatalogo();
+      document.querySelector(".main-container").scrollIntoView({ behavior: "smooth" });
+    }
+
     function reiniciarPaginaYFiltrar() {
       paginaActual = 1;
-      aplicarFiltros();
+      renderizarCatalogo();
     }
 
-    function aplicarFiltros() {
-      const texto = document.getElementById('searchInput').value.toLowerCase();
-      const maxPrecio = parseInt(document.getElementById('priceRange').value);
-      const orden = document.getElementById('sortSelect').value;
-
-      const catsMarcadas = Array.from(document.querySelectorAll('.chk-cat:checked')).map(cb => cb.value);
-      const enviosMarcados = Array.from(document.querySelectorAll('.chk-envio:checked')).map(cb => cb.value);
-
-      let filtrados = productos.filter(p => {
-        const coincideTexto = p.nombre.toLowerCase().includes(texto) || p.marca.toLowerCase().includes(texto) || p.categoria.toLowerCase().includes(texto);
-        const coincideCat = catsMarcadas.length === 0 || catsMarcadas.includes(p.categoria);
-        const coincideEnvio = enviosMarcados.length === 0 || enviosMarcados.includes(p.envio);
-        const coincidePrecio = p.precio <= maxPrecio;
-        return coincideTexto && coincideCat && coincideEnvio && coincidePrecio;
+    function seleccionarCategoria(cat, el = null) {
+      soloOfertas = false;
+      document.querySelectorAll(".chk-cat").forEach(chk => {
+        chk.checked = cat !== "Todas" && chk.value === cat;
       });
-
-      if (orden === 'menor-precio') filtrados.sort((a, b) => a.precio - b.precio);
-      if (orden === 'mayor-precio') filtrados.sort((a, b) => b.precio - a.precio);
-      if (orden === 'descuento') filtrados.sort((a, b) => b.descuento - a.descuento);
-
-      renderizarProductos(filtrados);
-    }
-
-    function seleccionarCategoria(cat, elemento) {
-      document.getElementById('megaMenu').classList.remove('active');
-      document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-      if (elemento) elemento.classList.add('active');
-
-      document.querySelectorAll('.chk-cat').forEach(cb => {
-        cb.checked = (cat !== 'Todas' && cb.value === cat);
-      });
+      document.querySelectorAll(".cat-card").forEach(card => card.classList.remove("active"));
+      if (el) {
+        el.classList.add("active");
+      } else {
+        const matchCard = Array.from(document.querySelectorAll(".cat-card")).find(c => c.textContent.includes(cat === "Todas" ? "Todos" : cat));
+        if (matchCard) matchCard.classList.add("active");
+      }
+      document.getElementById("megaMenu").classList.remove("active");
       reiniciarPaginaYFiltrar();
     }
 
     function filtrarSoloOfertas() {
-      document.getElementById('sortSelect').value = 'descuento';
+      soloOfertas = true;
       reiniciarPaginaYFiltrar();
+      document.querySelector(".main-container").scrollIntoView({ behavior: "smooth" });
     }
 
     function actualizarPrecioLabel() {
-      const val = parseInt(document.getElementById('priceRange').value);
-      document.getElementById('priceVal').textContent = val.toLocaleString();
+      const val = Number(document.getElementById("priceRange").value);
+      document.getElementById("priceVal").textContent = val.toLocaleString("es-PE");
       reiniciarPaginaYFiltrar();
     }
 
     function resetearTodo() {
-      document.getElementById('searchInput').value = '';
-      document.getElementById('priceRange').value = 6000;
-      document.getElementById('priceVal').textContent = '6,000';
-      document.getElementById('sortSelect').value = 'relevancia';
-      document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-      document.querySelectorAll('.cat-card').forEach((c, i) => c.classList.toggle('active', i === 0));
-      reiniciarPaginaYFiltrar();
+      soloOfertas = false;
+      paginaActual = 1;
+      document.getElementById("searchInput").value = "";
+      document.querySelectorAll(".chk-cat, .chk-envio").forEach(cb => cb.checked = false);
+      document.getElementById("priceRange").value = 6000;
+      document.getElementById("priceVal").textContent = "6,000";
+      document.getElementById("sortSelect").value = "relevancia";
+      document.querySelectorAll(".cat-card").forEach((card, idx) => card.classList.toggle("active", idx === 0));
+      renderizarCatalogo();
     }
 
-    // CARRITO
+    function toggleMegaMenu() {
+      document.getElementById("megaMenu").classList.toggle("active");
+    }
+
+    function toggleCarrito() {
+      document.getElementById("overlay").classList.add("active");
+      document.getElementById("cartDrawer").classList.add("active");
+      renderizarCarrito();
+    }
+
+    function cerrarModales() {
+      document.getElementById("overlay").classList.remove("active");
+      document.getElementById("cartDrawer").classList.remove("active");
+      document.querySelectorAll(".modal").forEach(m => m.classList.remove("active"));
+    }
+
     function agregarAlCarrito(id) {
       const prod = productos.find(p => p.id === id);
-      const itemExistente = carrito.find(item => item.id === id);
-
-      if (itemExistente) {
-        itemExistente.cantidad++;
-      } else {
-        carrito.push({ ...prod, cantidad: 1 });
-      }
-      actualizarCarritoUI();
-      toggleCarrito(true);
+      if (!prod) return;
+      const item = carrito.find(i => i.id === id);
+      if (item) item.qty += 1;
+      else carrito.push({ ...prod, qty: 1 });
+      actualizarContadorCarrito();
+      renderizarCarrito();
     }
 
     function cambiarCantidad(id, delta) {
       const item = carrito.find(i => i.id === id);
       if (!item) return;
-      item.cantidad += delta;
-      if (item.cantidad <= 0) {
-        carrito = carrito.filter(i => i.id !== id);
-      }
-      actualizarCarritoUI();
+      item.qty += delta;
+      if (item.qty <= 0) carrito = carrito.filter(i => i.id !== id);
+      actualizarContadorCarrito();
+      renderizarCarrito();
     }
 
-    function actualizarCarritoUI() {
-      const container = document.getElementById('cartItemsContainer');
-      const countBadge = document.getElementById('cartCount');
-      const totalEl = document.getElementById('cartTotal');
+    function actualizarContadorCarrito() {
+      const totalItems = carrito.reduce((acc, item) => acc + item.qty, 0);
+      document.getElementById("cartCount").textContent = totalItems;
+    }
 
-      const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-      const totalPrecio = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-
-      countBadge.textContent = totalItems;
-      totalEl.textContent = `S/ ${totalPrecio.toLocaleString('es-PE', { minimumFractionDigits: 2 })}`;
-
+    function renderizarCarrito() {
+      const cont = document.getElementById("cartItemsContainer");
+      const totalEl = document.getElementById("cartTotal");
       if (carrito.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color:#777; margin-top:40px;">Tu bolsa está vacía.</p>';
+        cont.innerHTML = `<p style="text-align:center; color:#777; margin-top:40px;">Tu bolsa está vacía.</p>`;
+        totalEl.textContent = "S/ 0.00";
         return;
       }
 
-      container.innerHTML = carrito.map(item => `
+      cont.innerHTML = carrito.map(item => `
         <div class="cart-item">
-          <img class="cart-thumb" src="${item.img}" alt="${item.nombre}" onerror="this.outerHTML='<span style=font-size:26px>${item.fallback}</span>'">
+          <img src="${item.img}" alt="${item.nombre}" class="cart-thumb">
           <div class="cart-item-info" style="flex:1;">
             <h5>${item.nombre}</h5>
-            <span style="color:var(--rojo-oferta); font-weight:bold; font-size:13px;">S/ ${(item.precio * item.cantidad).toLocaleString()}</span>
+            <span style="font-size:12px; color:#e60012; font-weight:bold;">S/ ${(item.precioOferta * item.qty).toLocaleString("es-PE")}</span>
           </div>
           <div class="qty-controls">
             <button onclick="cambiarCantidad(${item.id}, -1)">-</button>
-            <span>${item.cantidad}</span>
+            <span>${item.qty}</span>
             <button onclick="cambiarCantidad(${item.id}, 1)">+</button>
           </div>
         </div>
-      `).join('');
+      `).join("");
+
+      const total = carrito.reduce((acc, item) => acc + item.precioOferta * item.qty, 0);
+      totalEl.textContent = `S/ ${total.toLocaleString("es-PE", { minimumFractionDigits: 2 })}`;
     }
 
     function finalizarCompra() {
       if (carrito.length === 0) {
-        alert("Agrega al menos un producto antes de continuar.");
+        alert("Agrega al menos un producto antes de pagar.");
         return;
       }
-      alert("¡Pedido registrado con éxito en DANNER.COM! Gracias por tu compra.");
+      alert("¡Pedido registrado en DANNER.COM! Gracias por tu compra.");
       carrito = [];
-      actualizarCarritoUI();
+      actualizarContadorCarrito();
+      renderizarCarrito();
       cerrarModales();
     }
 
-    // MODALES
-    function toggleMegaMenu() {
-      document.getElementById('megaMenu').classList.toggle('active');
-    }
-
-    function toggleCarrito(forzarAbrir = false) {
-      const drawer = document.getElementById('cartDrawer');
-      const overlay = document.getElementById('overlay');
-      if (forzarAbrir) {
-        drawer.classList.add('active');
-        overlay.classList.add('active');
-      } else {
-        drawer.classList.toggle('active');
-        overlay.classList.toggle('active');
-      }
-    }
-
-    function verDetalle(id) {
-      const prod = productos.find(p => p.id === id);
-      document.getElementById('modalBrand').textContent = `${prod.marca} • ${prod.categoria}`;
-      const imgEl = document.getElementById('modalImg');
-      imgEl.src = prod.img;
-      imgEl.alt = prod.nombre;
-      document.getElementById('modalTitle').textContent = prod.nombre;
-      document.getElementById('modalDesc').textContent = prod.desc;
-      document.getElementById('modalPrice').textContent = `S/ ${prod.precio.toLocaleString()}`;
-      document.getElementById('modalOldPrice').textContent = `Normal: S/ ${prod.precioNormal.toLocaleString()}`;
-      
-      const btn = document.getElementById('modalAddBtn');
-      btn.onclick = () => {
+    function abrirDetalle(id) {
+      const p = productos.find(prod => prod.id === id);
+      if (!p) return;
+      document.getElementById("modalBrand").textContent = `${p.marca} · ${p.categoria}`;
+      document.getElementById("modalImg").src = p.img;
+      document.getElementById("modalTitle").textContent = p.nombre;
+      document.getElementById("modalDesc").textContent = p.descripcion;
+      document.getElementById("modalPrice").textContent = `S/ ${p.precioOferta.toLocaleString("es-PE")}`;
+      document.getElementById("modalOldPrice").textContent = `S/ ${p.precioNormal.toLocaleString("es-PE")}`;
+      document.getElementById("modalAddBtn").onclick = () => {
+        agregarAlCarrito(p.id);
         cerrarModales();
-        agregarAlCarrito(prod.id);
+        toggleCarrito();
       };
-
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('productModal').classList.add('active');
+      document.getElementById("overlay").classList.add("active");
+      document.getElementById("productModal").classList.add("active");
     }
 
     function abrirModalLogin() {
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('loginModal').classList.add('active');
+      document.getElementById("overlay").classList.add("active");
+      document.getElementById("loginModal").classList.add("active");
     }
 
     function procesarLogin(e) {
       e.preventDefault();
-      const nombre = document.getElementById('loginName').value.split(' ')[0];
-      document.getElementById('userBtn').textContent = `👤 Hola, ${nombre}`;
+      const nombre = document.getElementById("loginName").value.trim();
+      if (nombre) {
+        document.getElementById("userBtn").textContent = `👤 ${nombre.split(" ")[0]}`;
+      }
       cerrarModales();
     }
 
     function abrirModalUbicacion() {
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('locationModal').classList.add('active');
+      document.getElementById("overlay").classList.add("active");
+      document.getElementById("locationModal").classList.add("active");
     }
 
     function guardarUbicacion() {
-      const ciudad = document.getElementById('citySelect').value;
-      document.getElementById('locationBtn').textContent = `${ciudad} ▾`;
+      const ciudad = document.getElementById("citySelect").value;
+      document.getElementById("locationBtn").textContent = `${ciudad} ▾`;
       cerrarModales();
     }
 
     function suscribirNewsletter(e) {
       e.preventDefault();
-      alert("¡Gracias por suscribirte a DANNER.COM! Recibirás nuestras ofertas pronto.");
-      document.getElementById('newsEmail').value = '';
+      const email = document.getElementById("newsEmail").value;
+      alert(`¡Listo! Suscripción activada para ${email}.`);
+      e.target.reset();
     }
 
-    function cerrarModales() {
-      document.getElementById('overlay').classList.remove('active');
-      document.getElementById('cartDrawer').classList.remove('active');
-      document.getElementById('productModal').classList.remove('active');
-      document.getElementById('loginModal').classList.remove('active');
-      document.getElementById('locationModal').classList.remove('active');
-      document.getElementById('megaMenu').classList.remove('active');
-    }
-
-    // INICIALIZACIÓN
-    renderizarProductos(productos);
-    actualizarCarritoUI();
+    renderizarCatalogo();
   </script>
 </body>
 </html>
